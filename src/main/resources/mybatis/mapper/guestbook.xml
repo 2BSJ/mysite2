@@ -20,5 +20,19 @@
 			]]>
 		</if>	 		
 	</select>
+	
+	<update id="modify" parameterType="guestbookvo">
+		<![CDATA[
+			update guestbook set name=#{name}, contents=#{contents} where no=${no}
+		]]>
+	</update>
+	
+	<insert id="insert" parameterType="guestbookvo">
+		<![CDATA[
+			insert into guestbook values(null, ${name}, ${password}, ${contents}, now())
+		]]>
+	</insert>
+	
+	<delete id="delete" parameterType="guestbookvo"></delete>
 
 </mapper>

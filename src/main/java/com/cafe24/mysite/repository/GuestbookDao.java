@@ -58,41 +58,8 @@ public class GuestbookDao {
 	}
 	
 	public int insert(GuestbookVo vo) {
-		int count = 0;
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql =
-				" insert" + 
-				"   into guestbook" + 
-				" values(null, ?, ?, ?, now())";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, vo.getName());
-			pstmt.setString(2, vo.getPassword());
-			pstmt.setString(3, vo.getContents());
-			
-			count = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			System.out.println("error" + e);
-		} finally {
-			try {
-				if( pstmt != null ) {
-					pstmt.close();
-				}
-				if( conn != null ) {
-					conn.close();
-				}
- 			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}		
-		
-		return count;
+
+		return sqlSession.insert("insert",vo);
 	}	
 	
 	public List<GuestbookVo> getList(){
@@ -150,41 +117,7 @@ public class GuestbookDao {
 	}
 	public int modify(GuestbookVo vo){
 	
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql = "update guestbook set name=?, contents=? where no=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getName());
-			
-			pstmt.setString(2, vo.getContents());
-			
-			pstmt.setLong(3, vo.getNo());
-			
-			rs = pstmt.executeQuery();
-			
-
-			
-		} catch (SQLException e) {
-			System.out.println("error" + e);
-		} finally {
-			try {
-				if( rs != null ) {
-					rs.close();
-				}
-				if( pstmt != null ) {
-					pstmt.close();
-				}
-				if( conn != null ) {
-					conn.close();
-				}
- 			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}		
-		return 1;
+		return sqlSession.insert("guestbook.modify",vo);
+		
 	}
 }
