@@ -1,60 +1,49 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/assets/css/board.css" rel="stylesheet" type="text/css">
-</head>
+<link
+	href="${pageContext.servletContext.contextPath }/assets/css/board.css"
+	rel="stylesheet" type="text/css">
 <body>
 	<div id="container">
-		<div id="header">
-			<h1>MySite</h1>
-			<ul>
-				<li><a href="">ë¡ê·¸ì¸</a><li>
-				<li><a href="">íìê°ì</a><li>
-				<li><a href="">íìì ë³´ìì </a><li>
-				<li><a href="">ë¡ê·¸ìì</a><li>
-				<li>ë ìëíì¸ì ^^;</li>
-			</ul>
-		</div>
+		<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board" class="board-form">
 				<table class="tbl-ex">
 					<tr>
-						<th colspan="2">ê¸ë³´ê¸°</th>
+						<th colspan="2">글보기</th>
 					</tr>
 					<tr>
-						<td class="label">ì ëª©</td>
-						<td>ì ëª©ìëë¤.</td>
+						<td class="label">제목</td>
+						<td>${vo.title}</td>
 					</tr>
 					<tr>
-						<td class="label">ë´ì©</td>
+						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								ë´ì© 1ìëë¤.<br>
-								ë´ì© 2ìëë¤.<br>
-								ë´ì© 3ìëë¤.
+								${fn:replace(vo.contents,newline, "<br>")}
 							</div>
 						</td>
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="">ê¸ëª©ë¡</a>
-					<a href="">ê¸ìì </a>
+					<a href="${pageContext.servletContext.contextPath}/board/list">글목록</a>
+					<a href="${pageContext.servletContext.contextPath}/board/gowrite?groupNo=${vo.groupNo}&orderNo=${vo.orderNo}&depth=${vo.depth}&userNo=${authUser.no}">답글</a>
+					<c:if test="${authUser.no==vo.userNo}">
+						<a href="${pageContext.servletContext.contextPath}/board/gomodify">글수정</a>
+					</c:if>
 				</div>
 			</div>
 		</div>
-		<div id="navigation">
-			<ul>
-				<li><a href="">ìëí</a></li>
-				<li><a href="">ë°©ëªë¡</a></li>
-				<li><a href="">ê²ìí</a></li>
-			</ul>
-		</div>
-		<div id="footer">
-			<p>(c)opyright 2015, 2016, 2017, 2018</p>
-		</div>
+		<jsp:include page="/WEB-INF/views/includes/navigation.jsp" />
+		<jsp:include page="/WEB-INF/views/includes/footer.jsp" />
 	</div>
 </body>
 </html>

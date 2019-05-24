@@ -29,10 +29,15 @@
 	
 	<insert id="insert" parameterType="guestbookvo">
 		<![CDATA[
-			insert into guestbook values(null, ${name}, ${password}, ${contents}, now())
+			insert into guestbook values(null, #{name}, #{password}, #{contents}, now())
 		]]>
 	</insert>
 	
-	<delete id="delete" parameterType="guestbookvo"></delete>
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+			delete from guestbook where no=#{no} and password = #{password}
+		]]>
+	</delete>
+	
 
 </mapper>

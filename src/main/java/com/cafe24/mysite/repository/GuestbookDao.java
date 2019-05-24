@@ -4,8 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -25,41 +26,16 @@ public class GuestbookDao {
 
 	
 	public int delete(Long no,String password) {
-		int count = 0;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = dataSource.getConnection();
-			
-			String sql =
-				"delete from guestbook where no=? and password=?";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setLong(1, no);
-			pstmt.setString(2, password);
-			
-			count = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("error" + e);
-		} finally {
-			try {
-				if( pstmt != null ) {
-					pstmt.close();
-				}
-				if( conn != null ) {
-					conn.close();
-				}
- 			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("no",no);
+		map.put("password",password);
+		return sqlSession.delete("guestbook.delete",map);
 		
-		return count;
 	}
 	
 	public int insert(GuestbookVo vo) {
 
-		return sqlSession.insert("insert",vo);
+		return sqlSession.insert("guestbook.insert",vo);
 	}	
 	
 	public List<GuestbookVo> getList(){

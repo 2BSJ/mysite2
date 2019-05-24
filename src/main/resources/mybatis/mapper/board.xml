@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+	<insert id="insert" parameterType="boardvo">
+		<![CDATA[
+			insert into board values(null,#{title},#{contents},0,now(),
+			(select ifnull(max(tmp.group_no),0) 
+			from board tmp)+1,
+   			 1,1,#{userNo});	
+		]]>
+	</insert>
+	
+	<insert id="replyinsert" parameterType="boardvo">
+		<![CDATA[
+			insert into board values(null,#{title},#{contents},0,now(),
+			#{groupNo},
+   			 1,#{depth}+1,#{userNo});	
+		]]>
+	</insert>
+	
+	<update id="increaseorderno" parameterType="boardvo">
+		<![CDATA[
+			update board set order_no = order_no+1 where group_no = #{groupNo} and order_no !=0 and depth = #{depth}+1
+		]]>
+	</update>
+	
+	<select id="getlist" resultType="boardvo">
+		<![CDATA[
+		
+			select b.no,b.title,b.contents,b.hit,date_format(b.reg_date, '%Y-%m-%d %h:%i:%s') as regDate,
+			b.group_no as groupNo,
+			b.order_no as orderNo,
+			b.depth,
+			b.user_no as userNo,
+			c.name 
+			from board b,user c where b.user_no=c.no order by group_no desc, depth asc, order_no asc;
+		]]>
+	</select>
+	
+	<select id="getcontents" resultType="boardvo" parameterType='long'>
+		<![CDATA[
+		
+			select no,title,contents,hit,date_format(reg_date, '%Y-%m-%d %h:%i:%s') as regDate,
+			 group_no as groupNo,
+			 order_no as orderNo,
+			 depth,
+			 user_no as userNo
+			from board where no=#{no}
+		]]>
+	</select>
+	
+	<update id="increaseHit" parameterType='long'>
+	
+		<![CDATA[
+			update board set hit = hit+1 where no = #{no}
+		]]>
+	</update>
+	
+	<update id="modify" parameterType="boardvo">
+		<![CDATA[
+			update board set title=#{title}, contents=#{contents} where no=#{no}
+		]]>
+	</update>
+	
+	<delete id="delete" parameterType='long'>
+		<![CDATA[
+			delete from board where no=#{no}
+		]]>
+	</delete>
+	
+	<select id="checkreply" parameterType='int' resultType='int'>
+		<![CDATA[
+			select count(depth) as exist from board where group_no=#{groupNo} and depth>1;
+		]]>
+	</select>
+
+
+	
+	
+</mapper>

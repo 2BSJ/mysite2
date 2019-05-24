@@ -7,6 +7,8 @@ import java.io.StringWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -15,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
+	private static final Log LOGGER = LogFactory.getLog( GlobalExceptionHandler.class  );
 	
 	@ExceptionHandler( Exception.class)
 	public void handleUserDaoException(HttpServletRequest request, HttpServletResponse response, Exception e) throws Exception{
@@ -24,7 +26,7 @@ public class GlobalExceptionHandler {
 		e.printStackTrace();
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
-		//LOGGER.error(errors.toString());
+		LOGGER.error(errors.toString());
 		System.out.println(errors.toString());
 		
 		String accept = request.getHeader("accept");
@@ -35,9 +37,10 @@ public class GlobalExceptionHandler {
 			JSONResult jsonResult = JSONResult.fail(errors.toString());
 			String result = new ObjectMapper().writeValueAsString(jsonResult);
 			
-			System.out.println(result);
+			//System.out.println(result);
 			OutputStream os = response.getOutputStream();
 			os.write(result.getBytes("utf-8"));
+			os.flush();
 			os.close();
 		}else {
 			

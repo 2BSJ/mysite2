@@ -33,7 +33,7 @@
             <appender-ref ref="fileAppender" />
     </logger>
 	
-	<root level="debug">
+	<root level="info">
 		<appender-ref ref="consoleAppender" />
 	</root>
 

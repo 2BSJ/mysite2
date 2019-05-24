@@ -2,36 +2,49 @@ package com.cafe24.mysite.vo;
 
 public class BoardVo {
 	private Long no;
-	private String writer;
-	private String password;
 	private String title;
-	private String content;
-	private String writeDate;
+	private String contents;
+	private int hit;
+	private String regDate;
+	private int groupNo;
+	private int orderNo;
+	private int depth;
+	private Long userNo;
+	private String name;
 	
-	
-	
-	@Override
-	public String toString() {
-		return "BoardVo [no=" + no + ", writer=" + writer + ", password=" + password + ", title=" + title + ", content="
-				+ content + ", writeDate=" + writeDate + "]";
+
+
+	public BoardVo() {
 	}
+	
+//	public BoardVo(Long no,String title,String contents,int hit,String regDate, int groupNo,
+//			       int orderNo,int depth,int userNo) {
+//		
+//			this.no=no;
+//			this.title=title;
+//			this.contents=contents;
+//			this.hit=hit;
+//			this.regDate=regDate;
+//			this.groupNo=groupNo;
+//			this.orderNo=orderNo;
+//			this.depth=depth;
+//			this.userNo=userNo;		
+//	}
+	
+	public BoardVo(String title,String contents,Long userNo,int depth,int groupNo) {
+	
+		this.title=title;
+		this.contents=contents;
+		this.userNo=userNo;		
+		this.depth= depth;
+		this.groupNo= groupNo;
+}
+	
 	public Long getNo() {
 		return no;
 	}
 	public void setNo(Long no) {
 		this.no = no;
-	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public String getTitle() {
 		return title;
@@ -39,18 +52,55 @@ public class BoardVo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContent() {
-		return content;
+	public String getContents() {
+		return contents;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
-	public String getWriteDate() {
-		return writeDate;
+	public int getHit() {
+		return hit;
 	}
-	public void setWriteDate(String writeDate) {
-		this.writeDate = writeDate;
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+	public int getGroupNo() {
+		return groupNo;
+	}
+	public void setGroupNo(int groupNo) {
+		this.groupNo = groupNo;
+	}
+	public int getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+	public int getDepth() {
+		return depth;
+	}
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+	public Long getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(Long userNo) {
+		this.userNo = userNo;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	
 	
 }
