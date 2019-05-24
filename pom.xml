@@ -191,7 +191,7 @@
 					<url>http://127.0.0.1:8080/manager/text</url> <!-- 로컬에서 로컬이기때문에 이 주소가 가능 -->
 					<path>/mysite2</path>
 					<username>admin</username>
-					<password>manager</password>
+					<password>admin</password>
 				</configuration>
 			</plugin>
 
