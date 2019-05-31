@@ -23,10 +23,11 @@ public class BoardController {
 	
 	@Auth
 	@RequestMapping("/list")
-	public String list(HttpSession session) {
+	public String list(@RequestParam(value = "count",required=true,defaultValue="1")int count , Model model,
+						HttpSession session) {
 		
-		
-		session.setAttribute("list",boardService.getList());
+		model.addAttribute("count",count);
+		session.setAttribute("list",boardService.getList(count));
 		
 		return "board/list"; //리스트 get 구현
 	}

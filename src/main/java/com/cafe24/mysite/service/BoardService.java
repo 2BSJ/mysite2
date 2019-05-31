@@ -24,8 +24,10 @@ public class BoardService {
 		}
 	}
 	
-	public List<BoardVo> getList(){
-		return boardDao.getList();
+	public List<BoardVo> getList(int count){
+		int mincount = (count-1)*10;
+		
+		return boardDao.getList(mincount);
 	}
 	
 	public BoardVo getContents(Long no) {

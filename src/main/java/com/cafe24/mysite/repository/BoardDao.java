@@ -19,8 +19,8 @@ public class BoardDao {
 		return sqlSession.insert("board.insert",vo);
 	}
 	
-	public List<BoardVo> getList(){
-		List<BoardVo> result = sqlSession.selectList("board.getlist");
+	public List<BoardVo> getList(int count){
+		List<BoardVo> result = sqlSession.selectList("board.getlist",count);
 		return result;
 	}
 	

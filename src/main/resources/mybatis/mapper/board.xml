@@ -25,7 +25,7 @@
 		]]>
 	</update>
 	
-	<select id="getlist" resultType="boardvo">
+	<select id="getlist" resultType="boardvo" parameterType="int">
 		<![CDATA[
 		
 			select b.no,b.title,b.contents,b.hit,date_format(b.reg_date, '%Y-%m-%d %h:%i:%s') as regDate,
@@ -34,7 +34,9 @@
 			b.depth,
 			b.user_no as userNo,
 			c.name 
-			from board b,user c where b.user_no=c.no order by group_no desc, depth asc, order_no asc;
+			from board b,user c where b.user_no=c.no order by group_no desc, depth asc, order_no asc
+			
+			limit #{count},10;
 		]]>
 	</select>
 	
