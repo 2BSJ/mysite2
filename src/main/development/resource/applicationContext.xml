@@ -32,9 +32,9 @@
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName"
-			value="org.mariadb.jdbc.Driver" />
+			value="org.postgresql.Driver" />
 		<property name="url"
-			value="jdbc:mariadb://192.168.1.92:3307/webdb" />
+			value="jdbc:postgresql://192.168.1.92:5432/webdb?characterEncoding=utf8" />
 		<property name="username" value="webdb" />
 		<property name="password" value="webdb" />
 	</bean>
